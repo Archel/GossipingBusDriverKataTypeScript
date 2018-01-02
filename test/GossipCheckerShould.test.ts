@@ -2,11 +2,12 @@ import Driver from "../src/Driver";
 import GossipChecker from "../src/GossipChecker";
 
 describe("Gossip Checker Should", () => {
+    const gossipChecker = new GossipChecker();
+
     it("return true if all the drivers have all the gossips", () => {
         const driversWithAllTheGossips = [
             new Driver(0, []),
         ];
-        const gossipChecker = new GossipChecker();
 
         expect(gossipChecker.check(driversWithAllTheGossips)).toBe(true);
     });
@@ -16,9 +17,7 @@ describe("Gossip Checker Should", () => {
             new Driver(0, []),
             new Driver(1, []),
         ];
-
-        const gossipChecker = new GossipChecker();
-
+        
         expect(gossipChecker.check(driversWithoutAllTheGossips)).toBe(false);
     });
 });
