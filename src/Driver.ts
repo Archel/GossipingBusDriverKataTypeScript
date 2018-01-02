@@ -22,4 +22,17 @@ export default class Driver {
     public numberOfGossips(): number {
         return this.gossips.length;
     }
+
+    public addGossip(gossip: number): void {
+        const driverHasGossip = this.gossips.indexOf(gossip) !== -1;
+
+        if (!driverHasGossip) {
+            this.gossips.push(gossip);
+        }
+        
+    }
+
+    public getId(): number {
+        return this.id;
+    }
 }
