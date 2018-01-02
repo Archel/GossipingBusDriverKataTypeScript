@@ -17,7 +17,7 @@ export default class GossipUpdater {
     private doGossipExchange(driversOnTheStop: Driver[]) {
         driversOnTheStop.forEach((driver: Driver) => {
             driversOnTheStop.forEach((driverMate: Driver) => {
-                driver.addGossip(driverMate.getId());
+                driver.exchangeGossips(driverMate);
             });
         });
     }

@@ -44,4 +44,29 @@ describe("Gossip Updater Should", () => {
         expect(drivers[0].numberOfGossips()).toBe(2);
         expect(drivers[1].numberOfGossips()).toBe(2);
     });
+
+    it("return the drivers with the new gossips if they are on the same stop2", () => {
+        const driver = new Driver(0, [1]);
+        const driversGrouppedByStopAtSomePointOfTheJourney = {
+            1: [
+                driver,
+                new Driver(1, [1]),
+            ],
+        };
+
+        const gossipUpdater = new GossipUpdater();
+        gossipUpdater.update(driversGrouppedByStopAtSomePointOfTheJourney);
+
+        const driversGrouppedByStopAtOtherPointOfTheJourney = {
+            1: [
+                driver,
+                new Driver(2, [1]),
+            ],
+        };
+
+        const drivers = gossipUpdater.update(driversGrouppedByStopAtOtherPointOfTheJourney);
+
+        expect(drivers[0].numberOfGossips()).toBe(3);
+        expect(drivers[1].numberOfGossips()).toBe(3);
+    });
 });
