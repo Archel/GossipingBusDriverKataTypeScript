@@ -7,4 +7,11 @@ describe("Driver should",  () => {
 
         expect(stop).toEqual(1);
     });
+
+    it("return the stop at certain minute", () => {
+        const driver = new Driver(0, [1]);
+        const stop = driver.getStopAt(60);
+
+        expect(stop).toEqual(1);
+    });
 });

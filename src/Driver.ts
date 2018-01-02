@@ -8,6 +8,12 @@ export default class Driver {
     }
 
     public getStopAt(minute: number): number {
-        return this.route[minute];
+        const index = getIndexAt(minute, this.route.length);
+        
+        return this.route[index];
+        
+        function getIndexAt(minute: number, routeLength): number {
+            return minute > 0 ? ((minute - 1) % routeLength) : 0;
+        }
     }
 }
