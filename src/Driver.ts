@@ -19,7 +19,7 @@ export default class Driver {
         }
     }
 
-    public numberOfGossips(): any {
+    public numberOfGossips(): number {
         return this.gossips.length;
     }
 }

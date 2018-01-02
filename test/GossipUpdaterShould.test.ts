@@ -12,4 +12,21 @@ describe("Gossip Updater Should", () => {
 
         expect(drivers[0].numberOfGossips()).toBe(1);
     });
+
+    it("returns the drivers without new gossips if they are alone on the stops", () => {
+        const driversGrouppedByStop = {
+            1: [
+                new Driver(0, [1]),
+            ],
+            2: [
+                new Driver(1, [1]),
+            ],
+        };
+
+        const gossipUpdater = new GossipUpdater();
+        const drivers = gossipUpdater.update(driversGrouppedByStop);
+
+        expect(drivers[0].numberOfGossips()).toBe(1);
+        expect(drivers[1].numberOfGossips()).toBe(1);
+    });
 });
