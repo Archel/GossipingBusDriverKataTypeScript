@@ -31,11 +31,7 @@ export default class Driver {
         }
         
     }
-
-    public getId(): number {
-        return this.id;
-    }
-
+    
     public exchangeGossips(driver: Driver): void {
         this.gossips.forEach((gossip) => {
             driver.addGossip(gossip);
