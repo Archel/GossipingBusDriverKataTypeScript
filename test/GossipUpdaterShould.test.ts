@@ -2,12 +2,14 @@ import Driver from "../src/Driver";
 import GossipUpdater from "../src/GossipUpdater";
 
 describe("Gossip Updater Should", () => {
+    const gossipUpdater = new GossipUpdater();
+    const driver = new Driver(0, [1]);
+
     it("return the driver without new gossips if he is alone on the stop", () => {
         const driversGrouppedByStop = {
-            1: [new Driver(0, [1])],
+            1: [driver],
         };
 
-        const gossipUpdater = new GossipUpdater();
         const drivers = gossipUpdater.update(driversGrouppedByStop);
 
         expect(drivers[0].numberOfGossips()).toBe(1);
@@ -16,14 +18,13 @@ describe("Gossip Updater Should", () => {
     it("return the drivers without new gossips if they are alone on the stops", () => {
         const driversGrouppedByStop = {
             1: [
-                new Driver(0, [1]),
+                driver,
             ],
             2: [
                 new Driver(1, [2]),
             ],
         };
 
-        const gossipUpdater = new GossipUpdater();
         const drivers = gossipUpdater.update(driversGrouppedByStop);
 
         expect(drivers[0].numberOfGossips()).toBe(1);
@@ -31,7 +32,6 @@ describe("Gossip Updater Should", () => {
     });
 
     it("return the drivers with the new gossips if they are on the same stop", () => {
-        const driver = new Driver(0, [1]);
         const driversGrouppedByStopAtSomePointOfTheJourney = {
             1: [
                 driver,
@@ -39,7 +39,6 @@ describe("Gossip Updater Should", () => {
             ],
         };
 
-        const gossipUpdater = new GossipUpdater();
         gossipUpdater.update(driversGrouppedByStopAtSomePointOfTheJourney);
 
         const driversGrouppedByStopAtOtherPointOfTheJourney = {
