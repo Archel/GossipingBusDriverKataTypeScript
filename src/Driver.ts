@@ -6,4 +6,8 @@ export default class Driver {
         this.id = id;
         this.route = route;
     }
+
+    public getCurrentStop(minute: number): number {
+        return this.route[minute];
+    }
 }
