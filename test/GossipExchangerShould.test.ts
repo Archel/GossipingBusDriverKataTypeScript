@@ -12,7 +12,7 @@ import GossipExchanger from "../src/GossipExchanger";
 import GossipUpdater from "../src/GossipUpdater";
 
 describe("Gossip Exchanger Should", () => {
-    it.only("output the number of stops after all drivers have all the gossips during the journey", () => {
+    it("output the number of stops after all drivers have all the gossips during the journey", () => {
         const console = new Console();
         const driverPerBusStopBuilder = new DriverPerBusStopBuilder();
         const driversBuilder = new DriversBuilder();
