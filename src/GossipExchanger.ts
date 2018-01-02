@@ -30,14 +30,17 @@ export default class GossipExchanger {
     public calculateMinimumBusStopsDuringTheJourney(routes: number[][]): void {
         const drivers = this.driversBuilder.from(routes);
         
-        let minute = 1;
-
+        let minute = 0;
+        
         while (minute < GossipExchanger.MINUTES_OF_THE_JOURNEY
             && !this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+            const driversPerBusStop = this.driverPerBusStopBuilder.group(drivers, minute);
+            this.gossipUpdater.update(driversPerBusStop);
             minute++;
         }
-
+        
         if (this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+            minute--;
             this.console.printLine(minute.toString());
         } else {
             this.console.printLine("never");

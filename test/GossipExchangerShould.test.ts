@@ -12,8 +12,8 @@ import GossipExchanger from "../src/GossipExchanger";
 import GossipUpdater from "../src/GossipUpdater";
 
 describe("Gossip Exchanger Should", () => {
-    it("output the number of stops after all drivers have all the gossips during the journey", () => {
-        const aconsole = new Console();
+    it.only("output the number of stops after all drivers have all the gossips during the journey", () => {
+        const console = new Console();
         const driverPerBusStopBuilder = new DriverPerBusStopBuilder();
         const driversBuilder = new DriversBuilder();
         const gossipUpdater = new GossipUpdater();
@@ -26,7 +26,7 @@ describe("Gossip Exchanger Should", () => {
         ];
 
         gossipChecker.allTheDriversHaveAllGossips = jest.fn().mockImplementation(() => {
-            if (gossipChecker.allTheDriversHaveAllGossips.mock.calls.length === 5) {
+            if (gossipChecker.allTheDriversHaveAllGossips.mock.calls.length >= 7) {
                 return true;
             }
 
@@ -34,7 +34,7 @@ describe("Gossip Exchanger Should", () => {
         });
 
         const gossipingBusDrivers = new GossipExchanger(
-            aconsole,
+            console,
             driversBuilder,
             driverPerBusStopBuilder,
             gossipUpdater,
@@ -42,7 +42,10 @@ describe("Gossip Exchanger Should", () => {
         );
         gossipingBusDrivers.calculateMinimumBusStopsDuringTheJourney(routes);
         
-        expect(aconsole.printLine).toHaveBeenCalledWith("5");
+        expect(driversBuilder.from).toHaveBeenCalled();
+        expect(driverPerBusStopBuilder.group).toHaveBeenCalled();
+        expect(gossipUpdater.update).toHaveBeenCalled();
+        expect(console.printLine).toHaveBeenCalledWith("5");
     });
     
     it("output never if there is at least one driver that haven't all the gossips", () => {
@@ -65,6 +68,9 @@ describe("Gossip Exchanger Should", () => {
         );
         gossipingBusDrivers.calculateMinimumBusStopsDuringTheJourney(routes);
         
+        expect(driversBuilder.from).toHaveBeenCalled();
+        expect(driverPerBusStopBuilder.group).toHaveBeenCalled();
+        expect(gossipUpdater.update).toHaveBeenCalled();
         expect(console.printLine).toHaveBeenCalledWith("never");
     });
 });
