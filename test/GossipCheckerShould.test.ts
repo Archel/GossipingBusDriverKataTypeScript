@@ -9,7 +9,7 @@ describe("Gossip Checker Should", () => {
             new Driver(0, []),
         ];
 
-        expect(gossipChecker.check(driversWithAllTheGossips)).toBe(true);
+        expect(gossipChecker.allTheDriversHaveAllGossips(driversWithAllTheGossips)).toBe(true);
     });
 
     it("return false if all the drivers don't have all the gossips", () => {
@@ -18,6 +18,6 @@ describe("Gossip Checker Should", () => {
             new Driver(1, []),
         ];
         
-        expect(gossipChecker.check(driversWithoutAllTheGossips)).toBe(false);
+        expect(gossipChecker.allTheDriversHaveAllGossips(driversWithoutAllTheGossips)).toBe(false);
     });
 });

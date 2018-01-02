@@ -5,12 +5,14 @@ import GossipChecker from "./GossipChecker";
 import GossipUpdater from "./GossipUpdater";
     
 export default class GossipExchanger {
+    private static readonly MINUTES_OF_THE_JOURNEY = 480;
+
     private console: Console;
     private driversBuilder: DriversBuilder;
     private driverPerBusStopBuilder: DriverPerBusStopBuilder;
     private gossipChecker: GossipChecker;
     private gossipUpdater: GossipUpdater;
-    
+
     constructor(
         console: Console,
         driversBuilder: DriversBuilder,
@@ -26,6 +28,19 @@ export default class GossipExchanger {
     }
 
     public calculateMinimumBusStopsDuringTheJourney(routes: number[][]): void {
-        throw new Error("Method not implemented.");
+        const drivers = this.driversBuilder.from(routes);
+        
+        let minute = 1;
+
+        while (minute < GossipExchanger.MINUTES_OF_THE_JOURNEY
+            && !this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+            minute++;
+        }
+
+        if (this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+            this.console.printLine(minute.toString());
+        } else {
+            this.console.printLine("never");
+        }
     }
 }
