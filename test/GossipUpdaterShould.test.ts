@@ -31,21 +31,6 @@ describe("Gossip Updater Should", () => {
     });
 
     it("return the drivers with the new gossips if they are on the same stop", () => {
-        const driversGrouppedByStop = {
-            1: [
-                new Driver(0, [1]),
-                new Driver(1, [1]),
-            ],
-        };
-
-        const gossipUpdater = new GossipUpdater();
-        const drivers = gossipUpdater.update(driversGrouppedByStop);
-
-        expect(drivers[0].numberOfGossips()).toBe(2);
-        expect(drivers[1].numberOfGossips()).toBe(2);
-    });
-
-    it("return the drivers with the new gossips if they are on the same stop2", () => {
         const driver = new Driver(0, [1]);
         const driversGrouppedByStopAtSomePointOfTheJourney = {
             1: [
