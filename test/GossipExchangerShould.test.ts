@@ -26,11 +26,7 @@ describe("Gossip Exchanger Should", () => {
         ];
 
         gossipChecker.allTheDriversHaveAllGossips = jest.fn().mockImplementation(() => {
-            if (gossipChecker.allTheDriversHaveAllGossips.mock.calls.length >= 7) {
-                return true;
-            }
-
-            return false;
+            return gossipChecker.allTheDriversHaveAllGossips.mock.calls.length >= 6;
         });
 
         const gossipingBusDrivers = new GossipExchanger(

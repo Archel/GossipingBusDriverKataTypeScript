@@ -32,18 +32,18 @@ export default class GossipExchanger {
         
         let minute = 0;
         
-        while (minute < GossipExchanger.MINUTES_OF_THE_JOURNEY
-            && !this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+        while (minute < GossipExchanger.MINUTES_OF_THE_JOURNEY) {
             const driversPerBusStop = this.driverPerBusStopBuilder.group(drivers, minute);
             this.gossipUpdater.update(driversPerBusStop);
+            
+            if (this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
+                this.console.printLine(minute.toString());
+                return;
+            }
+
             minute++;
         }
         
-        if (this.gossipChecker.allTheDriversHaveAllGossips(drivers)) {
-            minute--;
-            this.console.printLine(minute.toString());
-        } else {
-            this.console.printLine("never");
-        }
+        this.console.printLine("never");
     }
 }
